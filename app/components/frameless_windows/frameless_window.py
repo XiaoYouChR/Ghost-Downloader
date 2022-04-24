@@ -104,7 +104,7 @@ class FramelessWindow(QWidget):
     def resizeEvent(self, e):
         """ Adjust the width and icon of title bar """
         super().resizeEvent(e)
-        self.titleBar.resize(self.width(), 40)
+        self.titleBar.resize(self.width(), 70)
         # update the maximized icon
         self.titleBar.maxBtn.setMaxState(
             self.__isWindowMaximized(int(self.winId())))
@@ -152,4 +152,3 @@ class AcrylicWindow(FramelessWindow):
                             Qt.WindowMinMaxButtonsHint)
         self.windowEffect.addWindowAnimation(self.winId())
         self.windowEffect.setAcrylicEffect(self.winId())
-        self.setStyleSheet("background:transparent")

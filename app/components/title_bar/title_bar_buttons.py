@@ -15,10 +15,10 @@ class MaximizeButton(QToolButton):
         self.iconPaths = [
             {'normal': getSkinFilename('TitleBar/Maximize_normal.png'),
              'hover': getSkinFilename('TitleBar/Maximize_hover.png'),
-             'pressed': getSkinFilename('TitleBar/Maximize_pressed.png')},
+             'pressed': getSkinFilename('TitleBar/Maximize_press.png')},
             {'normal': getSkinFilename('TitleBar/Reduction_normal.png'),
              'hover': getSkinFilename('TitleBar/Reduction_hover.png'),
-             'pressed': getSkinFilename('TitleBar/Reduction_pressed.png')}
+             'pressed': getSkinFilename('TitleBar/Reduction_press.png')}
         ]
         self.resize(15, 15)
         # 设置标志位
@@ -43,13 +43,6 @@ class MaximizeButton(QToolButton):
             return
         self.__updateIcon('pressed')
         super().mousePressEvent(e)
-
-    def mouseReleaseEvent(self, e):
-        if e.button() == Qt.RightButton:
-            return
-        self.isMax = not self.isMax
-        self.__updateIcon('normal')
-        super().mouseReleaseEvent(e)
 
     def setMaxState(self, isMax: bool):
         """ update the maximized state and icon """

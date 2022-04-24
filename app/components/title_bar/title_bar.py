@@ -19,7 +19,7 @@ class TitleBar(QWidget):
         self.minBtn = ThreeStateToolButton(
             {'normal': getSkinFilename('TitleBar/Minimize_normal.png'),
              'hover': getSkinFilename('TitleBar/Minimize_hover.png'),
-             'pressed': getSkinFilename('TitleBar/Minimize_pressed.png')}, parent=self)
+             'pressed': getSkinFilename('TitleBar/Minimize_press.png')}, parent=self)
         self.closeBtn = ThreeStateToolButton(
             {'normal': getSkinFilename('TitleBar/Close_Normal.png'),
              'hover': getSkinFilename('TitleBar/Close_Hover.png'),
@@ -29,8 +29,8 @@ class TitleBar(QWidget):
 
     def __initWidget(self):
         """ initialize all widgets """
-        self.resize(1360, 40)
-        self.setFixedHeight(40)
+        self.resize(1360, 70)
+        self.setFixedHeight(70)
         self.setAttribute(Qt.WA_StyledBackground)
         self.__setQss()
 
@@ -41,9 +41,9 @@ class TitleBar(QWidget):
 
     def resizeEvent(self, e: QResizeEvent):
         """ Move the buttons """
-        self.closeBtn.move(self.width() - 20, 5)
-        self.maxBtn.move(self.width() - 2 * 20, 5)
-        self.minBtn.move(self.width() - 3 * 20, 5)
+        self.closeBtn.move(self.width() - 20 - 15, 20)
+        self.maxBtn.move(self.width() - 2 * 20 - 15, 20)
+        self.minBtn.move(self.width() - 3 * 20 - 15, 20)
 
     def mouseDoubleClickEvent(self, event):
         """ Toggles the maximization state of the window """

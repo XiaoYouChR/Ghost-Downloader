@@ -1,0 +1,23 @@
+QWidget#MainWindow {
+	background:transparent;
+	font:12pt "微软雅黑";
+}
+
+QPushButton[round="true"] {
+	border-radius: 10px;
+    border: 1px solid rgb(0, 170, 255);
+}
+QPushButton[round="true"]:enabled {
+        background: rgb(120, 170, 220);
+        color: white;
+}
+QPushButton[round="true"]:!enabled {
+        background: rgb(180, 180, 180);
+        color: white;
+}
+QPushButton[round="true"]:enabled:hover{
+        background: rgb(100, 160, 220);
+}
+QPushButton[round="true"]:enabled:pressed{
+        background: rgb(0, 78, 161);
+}
