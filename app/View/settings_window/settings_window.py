@@ -8,4 +8,6 @@ class SettingsWindow(AcrylicWindow):
         super(SettingsWindow, self).__init__(parent)
 
         self.setObjectName("SettingsWindow")
-        self.config = Config()
+
+
+config = Config()

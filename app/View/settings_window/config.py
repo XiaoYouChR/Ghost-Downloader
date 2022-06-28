@@ -20,8 +20,8 @@ class Config:
         try:
             with open("config.json", encoding="utf-8") as f:
                 self.__config.update(json.load(f))
-        except:
-            pass
+        except Exception as err:
+            print(f"读取配置文件出错{err}")
 
     def __setitem__(self, key, value):
         if key not in self.__config:

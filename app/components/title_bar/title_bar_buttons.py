@@ -23,6 +23,7 @@ class MaximizeButton(QToolButton):
         self.resize(15, 15)
         # 设置标志位
         self.isMax = False
+        self.setToolTip("最大化")
         self.setIcon(
             QIcon(getSkinFilename('TitleBar/Maximize_normal.png')))
         self.setIconSize(QSize(15, 15))
@@ -31,6 +32,10 @@ class MaximizeButton(QToolButton):
         """ change the icon based on the iconState """
         self.setIcon(
             QIcon(self.iconPaths[self.isMax][iconState]))
+        if self.isMax:
+            self.setToolTip("还原")
+        elif self.isMax:
+            self.setToolTip("最大化")
 
     def enterEvent(self, e):
         self.__updateIcon('hover')

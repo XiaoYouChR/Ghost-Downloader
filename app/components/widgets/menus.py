@@ -64,7 +64,6 @@ class AcrylicMenu(QMenu):
         self.setStyleSheet(str(f.readAll(), encoding='utf-8'))
         f.close()
 
-
 class DWMMenu(QMenu):
     """ A menu with DWM shadow """
 

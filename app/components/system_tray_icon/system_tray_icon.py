@@ -1,3 +1,5 @@
+import sys
+
 from common.get_skin_filename import getSkinFilename
 from PySide2.QtWidgets import QSystemTrayIcon, QAction, QApplication
 from PySide2.QtGui import QIcon
@@ -8,9 +10,10 @@ class SystemTrayIcon(QSystemTrayIcon):
     def __init__(self, parent=None):
         super(SystemTrayIcon, self).__init__(parent)
         self.menu = SystemTrayMenu(parent)
+        self.activated.connect(self.menu.showHome)
         self.setContextMenu(self.menu)
         self.setIcon(QIcon(getSkinFilename("Logo.png")))
-
+        self.setToolTip("Ghost Downloader -- 姚是晓游的！")
 
 class SystemTrayMenu(DWMMenu):
     def __init__(self, parent=None):
@@ -24,6 +27,9 @@ class SystemTrayMenu(DWMMenu):
         self.pauseAllAct = QAction(QIcon(getSkinFilename("Icon/暂停.png")), "暂停全部任务", self)
         self.ExitAct = QAction(QIcon(getSkinFilename("Icon/启动.png")), "关闭软件", self)
 
+        self.showHomeAct.triggered.connect(self.showHome)
+        self.ExitAct.triggered.connect(lambda: sys.exit(0))
+
         self.addAction(self.showHomeAct)
         self.addSeparator()
         self.addActions([self.newTaskAct, self.startAllAct, self.pauseAllAct])
@@ -33,3 +39,7 @@ class SystemTrayMenu(DWMMenu):
         self.setObjectName('systemTrayMenu')
 
         self.setStyle(QApplication.style())
+
+    def showHome(self):
+        self.parent().show()
+        self.parent().raise_()

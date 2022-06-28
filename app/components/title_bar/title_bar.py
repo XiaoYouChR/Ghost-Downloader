@@ -34,6 +34,9 @@ class TitleBar(QWidget):
         self.setAttribute(Qt.WA_StyledBackground)
         self.__setQss()
 
+        self.closeBtn.setToolTip("关闭")
+        self.minBtn.setToolTip("最小化")
+
         # connect signal to slot
         self.minBtn.clicked.connect(self.window().showMinimized)
         self.maxBtn.clicked.connect(self.__toggleMaxState)
@@ -41,9 +44,9 @@ class TitleBar(QWidget):
 
     def resizeEvent(self, e: QResizeEvent):
         """ Move the buttons """
-        self.closeBtn.move(self.width() - 20 - 15, 20)
-        self.maxBtn.move(self.width() - 2 * 20 - 15, 20)
-        self.minBtn.move(self.width() - 3 * 20 - 15, 20)
+        self.closeBtn.move(self.width() - 20 - 15, 25)
+        self.maxBtn.move(self.width() - 2 * 20 - 15, 25)
+        self.minBtn.move(self.width() - 3 * 20 - 15, 25)
 
     def mouseDoubleClickEvent(self, event):
         """ Toggles the maximization state of the window """
