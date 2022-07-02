@@ -8,7 +8,7 @@ from PySide2.QtGui import QPixmap, QIcon
 from PySide2.QtWidgets import QPushButton, QLabel, QWidget, QScrollArea
 
 from View.settings_window import SettingsWindow
-from common.get_surf_info import proxy, headers
+from common.get_global_info import proxy, headers
 from common.get_skin_filename import getSkinFilename
 from components.frameless_windows import AcrylicWindow
 from components.system_tray_icon import SystemTrayIcon
@@ -106,7 +106,7 @@ class MainWindow(AcrylicWindow):
 
         # 系统列表Widgetのanimation
         self.systemListAnimation = QPropertyAnimation(self.systemListScrollArea, b"geometry")
-        self.systemListAnimation.setDuration(500)
+        self.systemListAnimation.setDuration(750)
         self.systemListAnimation.setEasingCurve(QEasingCurve.OutQuart)
 
         self.openedBtn = QPushButton(self)
@@ -189,6 +189,7 @@ class MainWindow(AcrylicWindow):
             # print("展开", self.opened)
             self.opened = True
             self.openedBtn.setText("收起系统列表")
+            self.systemListAnimation.stop()
             self.systemListAnimation.setEndValue(QRect(25, 25, 550, 555))
             self.systemListAnimation.start()
 
@@ -196,6 +197,7 @@ class MainWindow(AcrylicWindow):
             # print("收起", self.opened)
             self.opened = False
             self.openedBtn.setText("打开系统列表")
+            self.systemListAnimation.stop()
             self.systemListAnimation.setEndValue(QRect(475, 555, 100, 25))
             self.systemListAnimation.start()
 

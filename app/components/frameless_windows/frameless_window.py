@@ -1,10 +1,12 @@
 # coding:utf-8
+import sys
 from ctypes import POINTER, cast
 from ctypes.wintypes import MSG
+from platform import platform
 
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QCursor
-from PySide2.QtWidgets import QWidget
+from PySide2.QtGui import QCursor, QCloseEvent
+from PySide2.QtWidgets import QWidget, QApplication
 from PySide2.QtWinExtras import QtWin
 from win32 import win32api, win32gui
 from win32.lib import win32con
@@ -29,7 +31,6 @@ class FramelessWindow(QWidget):
 
         # add DWM shadow and window animation
         self.windowEffect.addWindowAnimation(self.winId())
-        self.windowEffect.addShadowEffect(self.winId())
 
         # solve issue #5
         self.windowHandle().screenChanged.connect(self.__onScreenChanged)
@@ -147,8 +148,36 @@ class AcrylicWindow(FramelessWindow):
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self.__closedByKey = False
+
         QtWin.enableBlurBehindWindow(self)
-        self.setWindowFlags(Qt.FramelessWindowHint |
-                            Qt.WindowMinMaxButtonsHint)
-        self.windowEffect.addWindowAnimation(self.winId())
-        self.windowEffect.setAcrylicEffect(self.winId())
+
+        if "Windows-7" or "Windows-10" in platform():
+            self.windowEffect.addShadowEffect(self.winId())
+            self.windowEffect.setAeroEffect(self.winId())
+        else:
+            self.windowEffect.setAcrylicEffect(self.winId())
+            # if sys.getwindowsversion().build >= 22000:
+            self.windowEffect.addShadowEffect(self.winId())
+
+    def nativeEvent(self, eventType, message):
+        """ Handle the Windows message """
+        msg = MSG.from_address(message.__int__())
+
+        # handle Alt+F4
+        if msg.message == win32con.WM_SYSKEYDOWN:
+            if msg.wParam == win32con.VK_F4:
+                self.__closedByKey = True
+                QApplication.sendEvent(self, QCloseEvent())
+                return False, 0
+
+        return super().nativeEvent(eventType, message)
+
+    def closeEvent(self, e):
+        if not self.__closedByKey or QApplication.quitOnLastWindowClosed():
+            self.__closedByKey = False
+            return super().closeEvent(e)
+
+        # system tray icon
+        self.__closedByKey = False
+        # self.hide()

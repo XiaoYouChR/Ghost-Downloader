@@ -35,6 +35,7 @@ class CheckProxyServer:
         return False
 
 proxy = CheckProxyServer().get_server_form_Win()
+
 if proxy:
     proxy = {
         "http": proxy,
@@ -49,3 +50,5 @@ else:
 headers = {
     "user-agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36 Edg/93.0.961.44"
 }
+
+DownGroupBoxesList = []

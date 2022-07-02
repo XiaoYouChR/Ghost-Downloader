@@ -8,7 +8,7 @@ from PySide2.QtGui import QPixmap
 from PySide2.QtWidgets import QGroupBox, QLabel, QTextEdit, QWidget, QPushButton, QComboBox
 
 from View.new_net_task_window import NewNetTaskWindow
-from common.get_surf_info import headers, proxy
+from common.get_global_info import headers, proxy
 from components.widgets.dialog import Dialog
 
 
@@ -156,6 +156,8 @@ class ListGroupBox(QGroupBox):
 
     def Open(self):
         if self.opened == False:  # 没有展开就展开
+            self.moreWidgetAnimation.stop()
+            self.downBtnAnimation.stop()
             self.moreWidgetAnimation.setEndValue(QRect(self.w - 500, 20, 491, 21))
             self.moreWidgetAnimation.start()
             self.downBtnAnimation.setEndValue(QPoint(450, 0))
@@ -164,6 +166,8 @@ class ListGroupBox(QGroupBox):
             self.opened = True
 
         elif self.opened == True:  # 展开了就收起
+            self.moreWidgetAnimation.stop()
+            self.downBtnAnimation.stop()
             self.moreWidgetAnimation.setEndValue(QRect(self.w - 70, 20, 61, 21))
             self.moreWidgetAnimation.start()
             self.downBtnAnimation.setEndValue(QPoint(20, 0))
