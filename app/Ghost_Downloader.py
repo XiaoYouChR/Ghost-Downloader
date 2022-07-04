@@ -33,7 +33,7 @@ if __name__ == '__main__':
     if not lockFile.tryLock(2000):
         msgBox = QMessageBox()
         msgBox.setWindowTitle("提示")
-        msgBox.setText("Ghost Downloader 2 已在运行!")
+        msgBox.setText("Ghost DownloadGroup 2 已在运行!")
         msgBox.setIcon(QMessageBox.Information)
         msgBox.addButton("确定", QMessageBox.YesRole)
         msgBox.exec()

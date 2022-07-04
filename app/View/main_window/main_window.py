@@ -213,22 +213,22 @@ class MainWindow(AcrylicWindow):
                     self.listNotLoaded = False
                 except requests.exceptions.ConnectionError as err:
                     print(err)
-                    Dialog(self, "网络连接失败！", f"请尝试关闭代理！\n{err}").exec_()
+                    Dialog(self, "网络连接失败！", f"请尝试关闭代理！\n{err}").execSignal.emit()
                     self.listNotLoaded = True
                 except ValueError as err:
                     print(err)
-                    Dialog(self, "网络连接失败！", f"请检查网络连接！\n{err}").exec_()
+                    Dialog(self, "网络连接失败！", f"请检查网络连接！\n{err}").execSignal.emit()
                     self.listNotLoaded = True
                 except Exception as err:
                     print(err)
-                    Dialog(self, "未知错误!", f"请联系开发者,QQ:2078107317！\n{err}").exec_()
+                    Dialog(self, "未知错误!", f"请联系开发者,QQ:2078107317！\n{err}").execSignal.emit()
                     self.listNotLoaded = True
 
             threading.Thread(target=getWebsiteContent, daemon=True).start()
 
     def closeEvent(self, e):
 
-        dialog = Dialog(self, "你在尝试退出哦!~", "你确定要退出 Ghost Downloader 吗?")
+        dialog = Dialog(self, "你在尝试退出哦!~", "你确定要退出 Ghost DownloadGroup 吗?")
         dialog.yesSignal.connect(lambda: super(MainWindow, self).closeEvent(e))
         dialog.cancelSignal.connect(e.ignore)
-        dialog.exec_()
+        dialog.execSignal.emit()

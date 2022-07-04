@@ -23,7 +23,7 @@ class MyProgressBar(QFrame):
         self.animation.setDuration(300)
         self.animation.setEasingCurve(QEasingCurve.OutQuad)
 
-        self.value = 80
+        self.value = 100
 
         self.progresser.resize(self.value * self.width() / 100, self.height())
 
@@ -39,6 +39,7 @@ class MyProgressBar(QFrame):
         self.changeValue.emit(value)
 
     def __setValue(self, value):
+        self.animation.stop()
         self.value = value
         self.animation.setEndValue(QRect(0, 0, self.value * self.width() / 100, self.height()))
         self.animation.start()

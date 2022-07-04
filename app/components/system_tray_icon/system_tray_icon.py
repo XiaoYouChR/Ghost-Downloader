@@ -13,7 +13,7 @@ class SystemTrayIcon(QSystemTrayIcon):
         self.activated.connect(self.menu.showHome)
         self.setContextMenu(self.menu)
         self.setIcon(QIcon(getSkinFilename("Logo.png")))
-        self.setToolTip("Ghost Downloader -- 姚是晓游的！")
+        self.setToolTip("Ghost DownloadGroup -- 姚是晓游的！")
 
 class SystemTrayMenu(DWMMenu):
     def __init__(self, parent=None):

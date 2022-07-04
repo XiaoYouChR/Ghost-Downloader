@@ -6,7 +6,7 @@ from PySide2.QtWidgets import QDialog, QVBoxLayout, QGroupBox, QHBoxLayout, QLab
     QSizePolicy, QPushButton, QLineEdit
 
 from View.settings_window.settings_window import config
-from common.downloader import Downloader
+from Download_Engine import DownloadGroup
 from common.get_skin_filename import getSkinFilename
 from common.get_global_info import headers, proxy
 from common.tools import decidePathWin
@@ -236,11 +236,11 @@ class NewNetTaskWindow(QDialog):
         if self.WPSRadioBtn.isChecked() == True:  # WPS
             DownloadLink = self.getWPSDownloadLink()
             for i in range(len(DownloadLink)):
-                Downloader(self.icon, DownloadLink[i], self.WPSname[i], self.decidePathEdit.text(), self.threadNum,
-                                self.mainWindow)
+                DownloadGroup(self.icon, DownloadLink[i], self.WPSname[i], self.decidePathEdit.text(), self.threadNum,
+                              self.mainWindow.downWidget)
         elif self.ODRadioBtn.isChecked() == True:  # OD
-            Downloader(self.icon, self.ODurl, self.ODname, self.decidePathEdit.text(), self.threadNum, self.mainWindow)
+            DownloadGroup(self.icon, self.ODurl, self.ODname, self.decidePathEdit.text(), self.threadNum, self.mainWindow.downWidget)
         elif self.CSTRadioBtn.isChecked() == True:  # CST
-            Downloader(self.icon, self.CSTurl, self.CSTname, self.decidePathEdit.text(), self.threadNum, self.mainWindow)
+            DownloadGroup(self.icon, self.CSTurl, self.CSTname, self.decidePathEdit.text(), self.threadNum, self.mainWindow.downWidget)
 
         self.close()

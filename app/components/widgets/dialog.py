@@ -7,6 +7,7 @@ from PySide2.QtWidgets import QDialog, QLabel, QPushButton
 
 
 class Dialog(QDialog):
+    execSignal = Signal()
     yesSignal = Signal()
     cancelSignal = Signal()
 
@@ -20,6 +21,9 @@ class Dialog(QDialog):
         self.yesButton = QPushButton('确定', self)
         self.cancelButton = QPushButton('取消', self)
         self.__initWidget()
+
+        # 连接信号
+        self.execSignal.connect(self.exec_)
 
     def __initWidget(self):
         """ initialize widgets """
@@ -66,3 +70,6 @@ class Dialog(QDialog):
         self.yesButton.adjustSize()
         self.cancelButton.adjustSize()
         self.contentLabel.adjustSize()
+
+    def __exec__(self):
+        self.execSignal.emit()
